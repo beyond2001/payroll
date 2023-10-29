@@ -1,5 +1,7 @@
 package com.lgcoding.payroll;
 
+import com.lgcoding.payroll.domain.Employee;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

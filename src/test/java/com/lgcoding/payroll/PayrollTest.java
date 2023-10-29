@@ -1,5 +1,24 @@
 package com.lgcoding.payroll;
 
+import com.lgcoding.payroll.affiliations.ServiceCharge;
+import com.lgcoding.payroll.affiliations.UnionAffiliation;
+import com.lgcoding.payroll.affiliationtransactions.ChangeEmployeeMemberTransaction;
+import com.lgcoding.payroll.affiliationtransactions.ChangeEmployeeUnaffiliatedTransaction;
+import com.lgcoding.payroll.affiliationtransactions.ServiceChargeTransaction;
+import com.lgcoding.payroll.classifications.*;
+import com.lgcoding.payroll.classificationtransaction.*;
+import com.lgcoding.payroll.domain.Employee;
+import com.lgcoding.payroll.domain.Paycheck;
+import com.lgcoding.payroll.generaltransactions.*;
+import com.lgcoding.payroll.methods.DirectMethod;
+import com.lgcoding.payroll.methods.HoldMethod;
+import com.lgcoding.payroll.methods.MailMethod;
+import com.lgcoding.payroll.methodtransactions.ChangeEmployeeDirectTransaction;
+import com.lgcoding.payroll.methodtransactions.ChangeEmployeeHoldTransaction;
+import com.lgcoding.payroll.methodtransactions.ChangeEmployeeMailTransaction;
+import com.lgcoding.payroll.schedules.BiweeklySchedule;
+import com.lgcoding.payroll.schedules.MonthlySchedule;
+import com.lgcoding.payroll.schedules.WeeklySchedule;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
