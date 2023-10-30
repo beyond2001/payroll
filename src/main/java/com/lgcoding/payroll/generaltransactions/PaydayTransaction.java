@@ -12,7 +12,7 @@ import java.util.Map;
 public class PaydayTransaction implements Transaction {
 
     private final LocalDate payDate;
-    private final Map<Integer, Paycheck> paychecks = new HashMap<Integer, Paycheck>();
+    private final Map<Integer, Paycheck> paychecks = new HashMap<>();
 
     public PaydayTransaction(LocalDate payDate) {
         this.payDate = payDate;
@@ -21,7 +21,7 @@ public class PaydayTransaction implements Transaction {
     @Override
     public void execute() {
         var empIds = PayrollDatabase.getInstance().getAllEmployeeIds();
-        empIds.stream().forEach(empId -> {
+        empIds.forEach(empId -> {
             Employee e = PayrollDatabase.getInstance().getEmployee(empId);
             if (e != null) {
                 if (e.isPayDate(payDate)) {

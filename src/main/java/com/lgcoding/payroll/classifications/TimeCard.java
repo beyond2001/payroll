@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.time.LocalDate;
 
 @Getter
- class TimeCard {
+public class TimeCard {
 
     private final LocalDate date;
     private final double hours;

@@ -1,4 +1,4 @@
-package com.lgcoding.payroll;
+package com.lgcoding.payroll.payrollapplication;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

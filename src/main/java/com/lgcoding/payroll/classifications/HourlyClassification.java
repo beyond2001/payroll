@@ -13,7 +13,7 @@ import java.util.Map;
 public class HourlyClassification implements PaymentClassification {
 
     private final Double hourlyRate;
-    private final Map<String, TimeCard> timeCards = new HashMap<String, TimeCard>();
+    private final Map<String, TimeCard> timeCards = new HashMap<>();
 
     public HourlyClassification(Double hourlyRate) {
         this.hourlyRate = hourlyRate;
@@ -31,9 +31,12 @@ public class HourlyClassification implements PaymentClassification {
 
     @Override
     public Double calculatePay(Paycheck paycheck) {
-        return timeCards.values().stream().filter(tc -> DateUtil.isBetween(tc.getDate(), paycheck.getStartDate(),
-                        paycheck.getPayDate()))
-                .map(tc -> calculatePayForTimeCard(tc)).reduce(0.0, (a, b) -> a + b);
+        var total = timeCards.values()
+                .stream()
+                .filter(tc -> DateUtil.isBetween(tc.getDate(), paycheck.getStartDate(), paycheck.getPayDate()))
+                .map(tc -> calculatePayForTimeCard(tc))
+                .reduce(0.0, Double::sum);
+        return total;
     }
 
     private Double calculatePayForTimeCard(TimeCard timecard) {
@@ -44,15 +47,15 @@ public class HourlyClassification implements PaymentClassification {
     }
 
     private Double calculatePayForWeekdayTimeCard(TimeCard timecard) {
-        Double STRAIGHT_TIME_HOURS = 8.0;
+        double STRAIGHT_TIME_HOURS = 8.0;
         Double OVERTIME_RATE = 1.5;
-        Double overtime = Math.max(0.0, timecard.getHours() - STRAIGHT_TIME_HOURS);
+        double overtime = Math.max(0.0, timecard.getHours() - STRAIGHT_TIME_HOURS);
         Double straightTime = timecard.getHours() - overtime;
         return straightTime * hourlyRate + overtime * hourlyRate * OVERTIME_RATE;
     }
 
     private Double calculatePayForWeekendTimeCard(TimeCard timecard) {
-        Double OVERTIME_RATE = 1.5;
+        double OVERTIME_RATE = 1.5;
         return timecard.getHours() * OVERTIME_RATE * hourlyRate;
     }
 }

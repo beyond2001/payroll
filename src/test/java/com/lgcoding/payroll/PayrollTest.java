@@ -20,25 +20,23 @@ import com.lgcoding.payroll.schedules.BiweeklySchedule;
 import com.lgcoding.payroll.schedules.MonthlySchedule;
 import com.lgcoding.payroll.schedules.WeeklySchedule;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
 public class PayrollTest {
 
-    PayrollDatabase payrollDatabase = PayrollDatabase.getInstance();
+      PayrollDatabase payrollDatabase = PayrollDatabase.getInstance();
 
     @Test
     public void testAddSalariedEmployee() {
         int empId = 1;
-        var t = new AddSalariedEmployeeTransaction(empId, "Guilherme", "Home", 1000.00);
+        var t = new AddSalariedEmployeeTransaction(empId, "Bob", "Home", 1000.00);
         t.execute();
 
         var e = payrollDatabase.getEmployee(empId);
-        assertEquals("Guilherme", e.getName());
+        assertEquals("Bob", e.getName());
 
         assertSalariedEmployee(e, 1000.00);
     }
@@ -46,7 +44,7 @@ public class PayrollTest {
     @Test
     public void testAddHourlyEmployee() {
         int empId = 1;
-        var t = new AddHourlyEmployeeTransaction(empId, "Guilherme", "Home", 1.0);
+        var t = new AddHourlyEmployeeTransaction(empId, "Bob", "Home", 1.0);
         t.execute();
 
         var e = payrollDatabase.getEmployee(empId);
@@ -56,7 +54,7 @@ public class PayrollTest {
     @Test
     public void testAddCommissionedEmployee() {
         int empId = 1;
-        var t = new AddCommissionedEmployeeTransaction(empId, "Guilherme", "Home", 1000.0, 0.1);
+        var t = new AddCommissionedEmployeeTransaction(empId, "Bob", "Home", 1000.0, 0.1);
         t.execute();
 
         var e = payrollDatabase.getEmployee(empId);
@@ -66,7 +64,7 @@ public class PayrollTest {
     @Test
     public void testDeleteEmployee() {
         int empId = 3;
-        var t = new AddSalariedEmployeeTransaction(empId, "Guilherme", "Home", 1000.0);
+        var t = new AddSalariedEmployeeTransaction(empId, "Bob", "Home", 1000.0);
         t.execute();
         {
             var e = payrollDatabase.getEmployee(empId);
@@ -84,7 +82,7 @@ public class PayrollTest {
     @Test
     public void testTimeCardTransaction() {
         int empId = 3;
-        var t = new AddHourlyEmployeeTransaction(empId, "Guilherme", "Home", 1.0);
+        var t = new AddHourlyEmployeeTransaction(empId, "Bob", "Home", 1.0);
         t.execute();
 
         var postingDate = LocalDate.now();
@@ -101,7 +99,7 @@ public class PayrollTest {
     @Test
     public void testSalesReceiptTransaction() {
         int empId = 3;
-        var t = new AddCommissionedEmployeeTransaction(empId, "Guilherme", "Home", 1000.0, 0.1);
+        var t = new AddCommissionedEmployeeTransaction(empId, "Bob", "Home", 1000.0, 0.1);
         t.execute();
 
         var postingDate = LocalDate.now();
@@ -119,7 +117,7 @@ public class PayrollTest {
     public void testAddServiceCharge() {
         int empId = 2;
         int memberId = 86;
-        var t = new AddHourlyEmployeeTransaction(empId, "Guilherme", "Home", 1.0);
+        var t = new AddHourlyEmployeeTransaction(empId, "Bob", "Home", 1.0);
         t.execute();
 
         var e = payrollDatabase.getEmployee(empId);
@@ -140,7 +138,7 @@ public class PayrollTest {
     @Test
     public void testChangeNameTransaction() {
         int empId = 2;
-        var t = new AddHourlyEmployeeTransaction(empId, "Guilherme", "Home", 1.0);
+        var t = new AddHourlyEmployeeTransaction(empId, "Bob", "Home", 1.0);
         t.execute();
 
         var cnt = new ChangeEmployeeNameTransaction(empId, "Gustavo");
@@ -153,7 +151,7 @@ public class PayrollTest {
     @Test
     public void testChangeAddressTransaction() {
         int empId = 2;
-        var t = new AddHourlyEmployeeTransaction(empId, "Guilherme", "Home", 1.0);
+        var t = new AddHourlyEmployeeTransaction(empId, "Bob", "Home", 1.0);
         t.execute();
 
         var cnt = new ChangeEmployeeAddressTransaction(empId, "Casa");
@@ -166,7 +164,7 @@ public class PayrollTest {
     @Test
     public void testChangeHourlyTransaction() {
         int empId = 3;
-        var t = new AddCommissionedEmployeeTransaction(empId, "Guilherme", "Home", 1000.0, 1.0);
+        var t = new AddCommissionedEmployeeTransaction(empId, "Bob", "Home", 1000.0, 1.0);
         t.execute();
 
         var cht = new ChangeEmployeeHourlyTransaction(empId, 2.5);
@@ -179,7 +177,7 @@ public class PayrollTest {
     @Test
     public void testChangeSalariedTransaction() {
         int empId = 3;
-        var t = new AddCommissionedEmployeeTransaction(empId, "Guilherme", "Home", 1000.0, 1.0);
+        var t = new AddCommissionedEmployeeTransaction(empId, "Bob", "Home", 1000.0, 1.0);
         t.execute();
 
         var cst = new ChangeEmployeeSalariedTransaction(empId, 1500.00);
@@ -192,7 +190,7 @@ public class PayrollTest {
     @Test
     public void testChangeCommissionedTransaction() {
         int empId = 3;
-        var t = new AddSalariedEmployeeTransaction(empId, "Guilherme", "Home", 1000.0);
+        var t = new AddSalariedEmployeeTransaction(empId, "Bob", "Home", 1000.0);
         t.execute();
 
         var cct = new ChangeEmployeeCommissionedTransaction(empId, 1500.00, 2.5);
@@ -205,7 +203,7 @@ public class PayrollTest {
     @Test
     public void testChangeDirectTransaction() {
         int empId = 1;
-        var t = new AddSalariedEmployeeTransaction(empId, "Guilherme", "Home", 1000.00);
+        var t = new AddSalariedEmployeeTransaction(empId, "Bob", "Home", 1000.00);
         t.execute();
 
         var cdt = new ChangeEmployeeDirectTransaction(empId);
@@ -219,7 +217,7 @@ public class PayrollTest {
     @Test
     public void testChangeMailTransaction() {
         int empId = 1;
-        var t = new AddSalariedEmployeeTransaction(empId, "Guilherme", "Home", 1000.00);
+        var t = new AddSalariedEmployeeTransaction(empId, "Bob", "Home", 1000.00);
         t.execute();
 
         var cmt = new ChangeEmployeeMailTransaction(empId);
@@ -233,7 +231,7 @@ public class PayrollTest {
     @Test
     public void testChangeHoldTransaction() {
         int empId = 1;
-        var t = new AddSalariedEmployeeTransaction(empId, "Guilherme", "Home", 1000.00);
+        var t = new AddSalariedEmployeeTransaction(empId, "Bob", "Home", 1000.00);
         t.execute();
 
         var cmt = new ChangeEmployeeMailTransaction(empId);
@@ -250,7 +248,7 @@ public class PayrollTest {
     public void testChangeMemberTransaction() {
         int empId = 2;
         int memberId = 1231;
-        var t = new AddHourlyEmployeeTransaction(empId, "Guilherme", "Home", 1.0);
+        var t = new AddHourlyEmployeeTransaction(empId, "Bob", "Home", 1.0);
         t.execute();
 
         var cmt = new ChangeEmployeeMemberTransaction(empId, memberId, 99.42);
@@ -268,7 +266,7 @@ public class PayrollTest {
     public void testChangeUnaffiliatedTransaction() {
         int empId = 2;
         int memberId = 1231;
-        var t = new AddHourlyEmployeeTransaction(empId, "Guilherme", "Home", 1.0);
+        var t = new AddHourlyEmployeeTransaction(empId, "Bob", "Home", 1.0);
         t.execute();
 
         var cmt = new ChangeEmployeeMemberTransaction(empId, memberId, 99.42);
@@ -285,7 +283,7 @@ public class PayrollTest {
     public void testPaySingleSalariedEmployee() {
         {
             int empId = 1;
-            var t = new AddSalariedEmployeeTransaction(empId, "Guilherme", "Home", 1000.00);
+            var t = new AddSalariedEmployeeTransaction(empId, "Bob", "Home", 1000.00);
             t.execute();
 
             LocalDate payDate = LocalDate.of(2001, 11, 30);
@@ -318,7 +316,7 @@ public class PayrollTest {
     @Test
     public void testPaySingleSalariedEmployeeOnWrongDate() {
         int empId = 1;
-        var t = new AddSalariedEmployeeTransaction(empId, "Guilherme", "Home", 1000.00);
+        var t = new AddSalariedEmployeeTransaction(empId, "Bob", "Home", 1000.00);
         t.execute();
 
         LocalDate payDate = LocalDate.of(2001, 11, 29);
@@ -332,7 +330,7 @@ public class PayrollTest {
     @Test
     public void testPaySingleHourlyEmployeeNoTimeCards() {
         int empId = 1;
-        var t = new AddHourlyEmployeeTransaction(empId, "Guilherme", "Home", 13.45);
+        var t = new AddHourlyEmployeeTransaction(empId, "Bob", "Home", 13.45);
         t.execute();
 
         var payDate = LocalDate.of(2001, 11, 9); // Friday
@@ -346,7 +344,7 @@ public class PayrollTest {
     public void testPaySingleHourlyEmployeeWithTimeCards() {
         int empId = 1;
         {
-            var t = new AddHourlyEmployeeTransaction(empId, "Guilherme", "Home", 13.45);
+            var t = new AddHourlyEmployeeTransaction(empId, "Bob", "Home", 13.45);
             t.execute();
         }
         {
@@ -371,7 +369,7 @@ public class PayrollTest {
     public void testPaySingleHourlyEmployeeWithTimeCardsOvertime() {
         int empId = 1;
         {
-            var t = new AddHourlyEmployeeTransaction(empId, "Guilherme", "Home", 13.45);
+            var t = new AddHourlyEmployeeTransaction(empId, "Bob", "Home", 13.45);
             t.execute();
         }
         {
@@ -391,7 +389,7 @@ public class PayrollTest {
     public void testPaySingleHourlyEmployeeOnWrongDate() {
         int empId = 1;
         {
-            var t = new AddHourlyEmployeeTransaction(empId, "Guilherme", "Home", 13.45);
+            var t = new AddHourlyEmployeeTransaction(empId, "Bob", "Home", 13.45);
             t.execute();
         }
         {
@@ -411,7 +409,7 @@ public class PayrollTest {
     public void testPaySingleHourlyEmployeeWithTimeCardsSpanningPeriods() {
         int empId = 1;
         {
-            var t = new AddHourlyEmployeeTransaction(empId, "Guilherme", "Home", 13.45);
+            var t = new AddHourlyEmployeeTransaction(empId, "Bob", "Home", 13.45);
             t.execute();
         }
         {
@@ -436,7 +434,7 @@ public class PayrollTest {
     public void testPaySingleHourlyEmployeeWeekendTimeCards() {
         int empId = 1;
         {
-            var t = new AddHourlyEmployeeTransaction(empId, "Guilherme", "Home", 13.45);
+            var t = new AddHourlyEmployeeTransaction(empId, "Bob", "Home", 13.45);
             t.execute();
         }
         {
@@ -461,7 +459,7 @@ public class PayrollTest {
     public void testPaySingleCommissionedEmployeeNoSalesReceipt() {
         int empId = 1;
         {
-            var t = new AddCommissionedEmployeeTransaction(empId, "Guilherme", "Home", 1000.00, 1.4);
+            var t = new AddCommissionedEmployeeTransaction(empId, "Bob", "Home", 1000.00, 1.4);
             t.execute();
         }
 
@@ -476,7 +474,7 @@ public class PayrollTest {
     public void testPaySingleCommissionedEmployeeOnWrongDate() {
         int empId = 1;
         {
-            var t = new AddCommissionedEmployeeTransaction(empId, "Guilherme", "Home", 1000.00, 1.4);
+            var t = new AddCommissionedEmployeeTransaction(empId, "Bob", "Home", 1000.00, 1.4);
             t.execute();
         }
         {
@@ -499,7 +497,7 @@ public class PayrollTest {
     public void testPaySingleCommissionedEmployeeWithSalesReceipt() {
         int empId = 1;
         {
-            var t = new AddCommissionedEmployeeTransaction(empId, "Guilherme", "Home", 1000.00, 0.003);
+            var t = new AddCommissionedEmployeeTransaction(empId, "Bob", "Home", 1000.00, 0.003);
             t.execute();
         }
         {
@@ -522,7 +520,7 @@ public class PayrollTest {
     public void testPaySingleCommissionedEmployeeSalesReceiptInPayDay() {
         int empId = 1;
         {
-            var t = new AddCommissionedEmployeeTransaction(empId, "Guilherme", "Home", 1000.00, 0.003);
+            var t = new AddCommissionedEmployeeTransaction(empId, "Bob", "Home", 1000.00, 0.003);
             t.execute();
         }
         {
@@ -541,7 +539,7 @@ public class PayrollTest {
     public void testPaySingleCommissionedEmployeeSalesReceiptSpanningPeriods() {
         int empId = 1;
         {
-            var t = new AddCommissionedEmployeeTransaction(empId, "Guilherme", "Home", 1000.00, 0.003);
+            var t = new AddCommissionedEmployeeTransaction(empId, "Bob", "Home", 1000.00, 0.003);
             t.execute();
         }
         {
@@ -565,7 +563,7 @@ public class PayrollTest {
         int empId = 1;
         int memberId = 123;
         {
-            var t = new AddSalariedEmployeeTransaction(empId, "Guilherme", "Home", 1000.00);
+            var t = new AddSalariedEmployeeTransaction(empId, "Bob", "Home", 1000.00);
             t.execute();
         }
         {
@@ -585,7 +583,7 @@ public class PayrollTest {
         int empId = 1;
         int memberId = 123;
 
-        new AddHourlyEmployeeTransaction(empId, "Guilherme", "Home", 4.75).execute();
+        new AddHourlyEmployeeTransaction(empId, "Bob", "Home", 4.75).execute();
         new ChangeEmployeeMemberTransaction(empId, memberId, 2.15).execute();
         new TimeCardTransaction(empId, LocalDate.of(2001, 11, 27), 8.0).execute();
 
@@ -601,7 +599,7 @@ public class PayrollTest {
         int empId = 1;
         int memberId = 124;
 
-        new AddHourlyEmployeeTransaction(empId, "Guilherme", "Home", 15.24).execute();
+        new AddHourlyEmployeeTransaction(empId, "Bob", "Home", 15.24).execute();
         new ChangeEmployeeMemberTransaction(empId, memberId, 9.42).execute();
 
         new TimeCardTransaction(empId, LocalDate.of(2001, 11, 6), 8.0).execute();
@@ -621,7 +619,7 @@ public class PayrollTest {
         int empId = 1;
         int memberId = 124;
 
-        new AddHourlyEmployeeTransaction(empId, "Guilherme", "Home", 15.24).execute();
+        new AddHourlyEmployeeTransaction(empId, "Bob", "Home", 15.24).execute();
         new ChangeEmployeeMemberTransaction(empId, memberId, 9.42).execute();
 
         new TimeCardTransaction(empId, LocalDate.of(2001, 11, 6), 8.0).execute();

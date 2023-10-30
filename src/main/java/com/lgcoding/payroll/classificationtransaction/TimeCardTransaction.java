@@ -28,7 +28,7 @@ public class TimeCardTransaction implements Transaction {
             if (pc instanceof HourlyClassification hc) {
                 hc.addTimeCard(date, hours);
             } else {
-                throw new IllegalStateException("Tried to add timecard to non-hourly employee");
+                throw new IllegalStateException("Tried to add time card to non-hourly employee");
             }
         } else {
             throw new IllegalStateException("Employee not found");

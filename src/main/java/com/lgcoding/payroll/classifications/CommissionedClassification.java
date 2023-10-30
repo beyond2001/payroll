@@ -37,9 +37,13 @@ public class CommissionedClassification implements PaymentClassification {
     }
 
     private Double commissions(Paycheck paycheck) {
-        return salesReceipts.values().stream().filter(sr -> DateUtil.isBetween(sr.getDate(), paycheck.getStartDate(),
-                        paycheck.getPayDate()))
-                .map(sr -> calculateSalesReceiptCommission(sr)).reduce(0.0, (a, b) -> a + b);
+        double totalCommissions = salesReceipts.values()
+                .stream()
+                .filter(sr -> DateUtil.isBetween(sr.getDate(), paycheck.getStartDate(), paycheck.getPayDate()))
+                .map(sr -> calculateSalesReceiptCommission(sr))
+                .reduce(0.0, (a, b) -> a + b);
+
+        return totalCommissions;
     }
 
     private Double calculateSalesReceiptCommission(SalesReceipt salesReceipt) {

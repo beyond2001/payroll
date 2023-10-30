@@ -10,7 +10,7 @@ public class BiweeklySchedule implements PaymentSchedule {
 
     @Override
     public boolean isPayDate(LocalDate payDate) {
-        return (payDate.getDayOfWeek() == DayOfWeek.FRIDAY) && DateUtil.isInBiweekly(payDate);
+        return (payDate.getDayOfWeek() == DayOfWeek.FRIDAY) && DateUtil.isEvenWeek(payDate);
     }
 
     @Override

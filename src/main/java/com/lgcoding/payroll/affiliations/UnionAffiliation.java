@@ -50,8 +50,11 @@ public class UnionAffiliation implements Affiliation {
     }
 
     private Double calculateServiceCharges(Paycheck paycheck) {
-        return serviceCharges.values().stream().filter(sc -> DateUtil.isBetween(sc.getDate(), paycheck.getStartDate(),
-                        paycheck.getPayDate()))
-                .map(sc -> sc.getAmount()).reduce(0.0, (a, b) -> a + b);
+        var total = serviceCharges.values()
+                .stream()
+                .filter(sc -> DateUtil.isBetween(sc.getDate(), paycheck.getStartDate(), paycheck.getPayDate()))
+                .map(sc -> sc.getAmount())
+                .reduce(0.0, (a, b) -> a + b);
+        return total;
     }
 }
